@@ -33,8 +33,7 @@ pipeline{
 	   	steps{
             script{
                def userHost = "ec2-user@172.31.19.110"
-               def tomcatBin = "ec2-user@172.31.19.110 /home/ec2-user/apache-tomcat-8.5.51/webapps
-"
+               def tomcatBin = "ec2-user@172.31.19.110 /home/ec2-user/apache-tomcat-8.5.51/webapps"
 	   		   sshagent(['tomcat-dev']) {
                   // copy war file to tomcat webapps
                   sh "scp -o StrictHostKeyChecking=no target/*.war ${userHost}:/home/ec2-user/apache-tomcat-8.5.51/webapps
