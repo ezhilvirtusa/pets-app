@@ -24,12 +24,12 @@
   <distributionManagement>
                  <snapshotRepository>
                     <id>nexusrepo</id>
-                    <url>http://172.31.19.110:8081/repository/pets-snapshot/</url>
+                    <url>http://3.0.177.219:8081/repository/pets-snapshot/</url>
                  </snapshotRepository>
 
                 <repository>
                     <id>nexusrepo</id>
-                    <url>http://172.31.19.110:8081/repository/pets-release/</url>
+                    <url>http://3.0.177.219:8081/repository/pets-release/</url>
                 </repository>
         </distributionManagement>
 
