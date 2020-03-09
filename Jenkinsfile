@@ -36,8 +36,7 @@ pipeline{
                def tomcatBin = "ec2-user@172.31.19.110 /home/ec2-user/apache-tomcat-8.5.51/webapps"
 	   		   sshagent(['tomcat-dev']) {
                   // copy war file to tomcat webapps
-                  sh "scp -o StrictHostKeyChecking=no target/*.war ${userHost}:/home/ec2-user/apache-tomcat-8.5.51/webapps
-/pets-app.war"
+                  sh "scp -o StrictHostKeyChecking=no target/*.war ${userHost}:/home/ec2-user/apache-tomcat-8.5.51/webapps/pets-app.war"
                   // stop and start tomcat
                   sh "ssh ${tomcatBin}/shutdown.sh"
                   sh "ssh ${tomcatBin}/startup.sh"
