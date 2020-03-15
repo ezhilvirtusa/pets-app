@@ -2,6 +2,7 @@
 
 ### Maven command to create java web project
 
+
 ```
   mvn archetype:generate 
 	-DgroupId=in.javahome
