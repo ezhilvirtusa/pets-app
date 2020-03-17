@@ -11,7 +11,6 @@
 	-DinteractiveMode=false
 
 ```
-
 ### Install Nexus3 on Linux
 
 ```
