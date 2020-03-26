@@ -1,0 +1,51 @@
+pipeline {
+   agent any
+   environment {
+        //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
+        IMAGE = readMavenPom().getArtifactId()
+   }
+   stages {
+      stage('Git SCM') {
+            steps {
+                //def pomVersion = readMavenPom file: 'pom.xml'
+                //def pomv = pomVersion.version
+                git credentialsId: 'GIT', url: 'https://github.com/ezhilvirtusa/pets-app.git'
+                }
+       }
+       stage('compile') {
+            steps {
+                withMaven(maven: 'maven3') {
+                    sh 'mvn install'
+                  
+                }
+            }
+        }
+        stage('Nexus') {
+            steps {
+                script{
+                    def pomVersion = readMavenPom file: 'pom.xml'
+                    def pomv = pomVersion.version
+                    def repo = pomv.endsWith("SNAPSHOT") ? "pets-snapshot" : "pets-release"
+                    nexusArtifactUploader artifacts: [[artifactId: 'pets-app', classifier: '', file: 'target/pets-app.war', type: 'war']],
+                        credentialsId: 'NexusApplogin', 
+                        groupId: 'in.javahome', 
+                        nexusUrl: '172.31.19.110:8081', 
+                        nexusVersion: 'nexus3', 
+                        protocol: 'http', 
+                        repository: repo, 
+                        version: pomv
+            }   }
+        }
+       stage('Deploy'){
+           steps {
+               sshagent(credentials: ['Tomcat'], ignoreMissing: true) {
+                    sh 'scp target/pets-app.war ec2-user@172.31.19.110:/home/ec2-user/apache-tomcat-8.5.51/webapps/'
+                    
+                    sh 'ssh ec2-user@172.31.19.110 /home/ec2-user/apache-tomcat-8.5.51/bin/shutdown.sh'
+                    sh 'ssh ec2-user@172.31.19.110 /home/ec2-user/apache-tomcat-8.5.51/bin/startup.sh'
+                    
+                }
+           }
+       }    
+    }
+}
