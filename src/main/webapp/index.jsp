@@ -1,6 +1,6 @@
 <html>
 <body>
-<h1 style="color:red">Java Home App - Weekend Batch!</h1>
+<h1 style="color:blue">Java Home App - Weekend Batch -Docker training!</h1>
   
   
 </body>
