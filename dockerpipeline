@@ -1,0 +1,47 @@
+pipeline{
+    agent any
+    stages{
+        stage('Build'){
+            steps{
+                  withMaven(maven: 'maven3') {
+                     sh 'mvn clean package'
+                        }
+            }
+        }
+        
+        stage('Image'){
+            steps{
+                  
+                     sh 'docker build . -t ezhilc/myapp'
+                  
+            }
+        
+    }
+        stage('push'){
+            steps{
+                withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
+                     sh "docker login -u ezhilc -p ${dockerpass}"
+                    }
+                sh 'docker push ezhilc/myapp'
+            } 
+                  
+            }
+        stage('Deploy'){
+            steps{
+                script{
+                    try{
+                  sh 'docker rm -f petsapp'
+                }
+                catch(error){
+                    echo "print error"
+                }
+                }
+                
+                sh 'docker run -d -p 8081:8080 --name petsapp ezhilc/myapp'
+            }
+        }
+        
+    }
+        
+}
+
