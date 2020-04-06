@@ -1,6 +1,14 @@
 pipeline{
     agent any
     stages{
+        stage('Checkout'){
+            steps{
+                 git credentialsId: 
+                 'GIT', 
+                 url: 'https://github.com/ezhilvirtusa/pets-app.git'
+        }
+    }
+
         stage('Build'){
             steps{
                   withMaven(maven: 'maven3') {
