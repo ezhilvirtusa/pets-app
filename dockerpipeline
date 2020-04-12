@@ -37,6 +37,7 @@ pipeline{
                         catch(error){
                             echo "print error"
                         }
+                    sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.18.42 docker rmi ezhilc/myapp'
                     sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.18.42 docker run -d -p 8081:8080 --name petsapp ezhilc/myapp'    
                 }
                   
