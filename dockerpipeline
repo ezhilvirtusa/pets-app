@@ -22,7 +22,7 @@ pipeline{
                 withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
                      sh "docker login -u ezhilc -p ${dockerpass}"
                     }
-                sh 'docker run -d -p 8082:8080 --name pets ezhilc/myapp'   
+                //sh 'docker run -d -p 8082:8080 --name pets ezhilc/myapp'   
                 sh 'docker push ezhilc/myapp'
             } 
                   
