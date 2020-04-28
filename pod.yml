@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
     - name: nodeapp
-      image: ezhilc/pets-app:v1
+      image: ezhilc/pets-app:commithash
       ports:
         - containerPort: 8080
