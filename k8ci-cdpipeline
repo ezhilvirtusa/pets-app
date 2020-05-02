@@ -12,7 +12,7 @@ pipeline{
         }
         stage('Build the  Image'){
             steps{
-                sh "docker build . -t ezhilc/pets-app:v1"
+                sh "docker build . -t ezhilc/pets-app:${dockerTag()}"
                
             }
         }
@@ -20,12 +20,17 @@ pipeline{
             steps{
                 withCredentials([string(credentialsId: 'dockerpass', variable: 'Dockercred')]) {
                      sh "docker login -u ezhilc -p ${Dockercred}"
-                     sh "docker push ezhilc/pets-app:v1"
+                     sh "docker push ezhilc/pets-app:${dockerTag()}"
                 }
             }
         }
         stage('Deploy k8s'){
             steps{
+                sh """
+                    version=${dockerTag()}
+                    sed -i "s/commithash/\${version}/g" pod.yml
+                  """
+                
                 kubernetesDeploy configs: 'pod.yml', 
                 kubeConfig: [path: ''], 
                 kubeconfigId: 'Kubernetconfig', 
@@ -35,7 +40,7 @@ pipeline{
             }
         }
     }
-
+}
 def dockerTag(){
 def commitId = sh returnStdout: true, script: 'git rev-parse --short HEAD'
 return commitId
