@@ -22,16 +22,15 @@
 
   </dependencies>
   <distributionManagement>
-                 <snapshotRepository>
-                    <id>nexusrepo</id>
-                    <url>http://172.31.19.110:8081/repository/pets-snapshot/</url>
-                 </snapshotRepository>
-
-	  
-                <repository>
-                    <id>nexusrepo</id>
-                    <url>http://172.31.19.110:8081/repository/pets-release/</url>
-                </repository>
+		 <snapshotRepository>
+		    <id>nexus</id>
+		    <url>http://54.209.204.251:8080/nexus/content/repositories/car-rent-snap/</url>
+		 </snapshotRepository>
+		
+		<repository>
+		    <id>nexus</id>
+		    <url>http://54.209.204.251:8080/nexus/content/repositories/car-rent-rel/</url>
+		</repository>
         </distributionManagement>
 
   <build>
