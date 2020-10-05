@@ -24,12 +24,12 @@
   <distributionManagement>
 		 <snapshotRepository>
 		    <id>nexus</id>
-		    <url>http://54.209.204.251:8080/nexus/content/repositories/car-rent-snap/</url>
+		    <url>http://54.160.102.145:8080/nexus/content/repositories/car-rent-snap/</url>
 		 </snapshotRepository>
 		
 		<repository>
 		    <id>nexus</id>
-		    <url>http://54.209.204.251:8080/nexus/content/repositories/car-rent-rel/</url>
+		    <url>http://54.160.102.145:8080/nexus/content/repositories/car-rent-rel/</url>
 		</repository>
         </distributionManagement>
 
